@@ -47,23 +47,17 @@ questions = [
 # keep track of answers in a list
 answers = []
 
-# tracking the score
-score = 0
+# Function to calculate the score
+def calculate_score():
+    score = 0
+    for question in questions:
+        result = ask_question(question)
+        answers.append(result)
+        score += 10 if result else 0
+    return score
 
 # function that takes in 1 question
 def ask_question(question):
-    global score  # Add global keyword to access the global variable inside the function
-    # asks user the question and stores it.
-    print(question['question'])
-# keep track of answers in a list
-answers = []
-
-# tracking the score
-score = 0
-
-# function that takes in 1 question
-def ask_question(question):
-    global score  # Add global keyword to access the global variable inside the function
     # asks user the question and stores it.
     print(question['question'])
     for option in question['options']:
@@ -72,13 +66,13 @@ def ask_question(question):
     # checks if correct answer
     if user_answer.upper() == question['correct_answer']:
         print('Correct answer')
-        score += 10
-        # adds True in answer list
-        answers.append(True)
+        return True
     else:
         print('Incorrect')
-        # adds False in answer list
-        answers.append(False)
+        return False
+
+# Calculate the score
+score = calculate_score()
 
 print("That's all the questions, ", name, "! Let's see how you did!")
 print("Answers:", answers)
